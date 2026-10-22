@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="description" content="Explore countries around the world with World Explorer." />
+  <title>World Explorer — Discover the world</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: {
+      colors: { ink: '#0b1220', ocean: '#10243d', mint: '#a7f3d0', coral: '#fb7185' },
+      boxShadow: { soft: '0 18px 55px rgba(15,23,42,.10)' }
+    }}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-ink dark:text-slate-100 transition-colors">
+  <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl dark:bg-ink/90 dark:border-slate-800">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+      <a href="#" class="flex items-center gap-3" aria-label="World Explorer home">
+        <span class="grid h-10 w-10 place-items-center rounded-2xl bg-ink text-xl text-mint shadow-lg">◎</span>
+        <span><span class="block font-display text-lg font-extrabold tracking-tight">world<span class="text-emerald-500">explorer</span></span><span class="hidden text-[10px] font-bold uppercase tracking-[.22em] text-slate-400 sm:block">A little closer to everywhere</span></span>
+      </a>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button id="favoritesNav" class="nav-pill" type="button">♡ <span class="hidden sm:inline">Saved</span> <span id="favoriteCount" class="count-badge">0</span></button>
+        <button id="compareNav" class="nav-pill" type="button">⇄ <span class="hidden sm:inline">Compare</span> <span id="compareCount" class="count-badge">0</span></button>
+        <button id="themeToggle" class="icon-button" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">☾</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero-wrap overflow-hidden">
+      <div class="hero-grid mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[1.05fr_.95fr] lg:px-8 lg:py-20">
+        <div class="relative z-10">
+          <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold tracking-wide text-emerald-100 backdrop-blur"><span class="h-2 w-2 rounded-full bg-mint"></span> YOUR PASSPORT TO CURIOSITY</div>
+          <h1 class="font-display max-w-2xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">The world is bigger than your <span class="text-mint">map.</span></h1>
+          <p class="mt-5 max-w-xl text-base leading-7 text-slate-300 sm:text-lg">Discover new places, compare cultures, and keep a list of countries you dream of exploring.</p>
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a href="#explore" class="rounded-xl bg-mint px-5 py-3 text-sm font-extrabold text-ink shadow-lg transition hover:-translate-y-0.5 hover:bg-emerald-200">Start exploring <span aria-hidden="true">↘</span></a>
+            <span class="text-sm text-slate-400">One planet. Endless stories.</span>
+          </div>
+          <div class="mt-10 grid max-w-lg grid-cols-3 gap-3">
+            <div class="hero-stat"><span id="totalStat">—</span><small>Countries</small></div>
+            <div class="hero-stat"><span id="regionsStat">6</span><small>Regions</small></div>
+            <div class="hero-stat"><span id="savedStat">0</span><small>Saved by you</small></div>
+          </div>
+        </div>
+        <div class="relative mx-auto w-full max-w-xl">
+          <div class="globe-orbit orbit-one"></div><div class="globe-orbit orbit-two"></div>
+          <div class="globe-art" aria-label="Illustration of planet Earth"><div class="globe-shine"></div><span class="continent continent-one"></span><span class="continent continent-two"></span><span class="continent continent-three"></span><span class="continent continent-four"></span><span class="globe-pin pin-one">✦</span><span class="globe-pin pin-two">✦</span></div>
+          <div class="float-note note-top"><span class="text-2xl">🧭</span><span><b>Find your next</b><small>favorite destination</small></span></div>
+          <div class="float-note note-bottom"><span class="text-2xl">🌍</span><span><b>250+ stories</b><small>waiting to be found</small></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="explore" class="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+      <div class="mb-7 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div><p class="section-kicker">THE WORLD, AT YOUR FINGERTIPS</p><h2 class="font-display mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">Explore countries<span class="text-emerald-500">.</span></h2><p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Find a place, learn something new, save it for later.</p></div>
+        <div class="flex flex-wrap gap-2"><button id="allViewBtn" class="view-tab active" type="button">All countries</button><button id="savedViewBtn" class="view-tab" type="button">♡ Saved places</button></div>
+      </div>
+
+      <div class="filter-panel mb-7">
+        <div class="relative min-w-0 flex-1">
+          <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-xl text-slate-400">⌕</span>
+          <input id="searchInput" class="search-input" type="search" placeholder="Search a country..." autocomplete="off" aria-label="Search countries" />
+          <kbd class="search-kbd hidden md:inline">⌘ K</kbd>
+        </div>
+        <select id="regionFilter" class="filter-select" aria-label="Filter by region"><option value="all">All regions</option><option>Africa</option><option>Americas</option><option>Asia</option><option>Europe</option><option>Oceania</option><option>Antarctic</option></select>
+        <select id="sortSelect" class="filter-select" aria-label="Sort countries"><option value="name-asc">Name: A to Z</option><option value="name-desc">Name: Z to A</option><option value="population-desc">Population: high to low</option><option value="population-asc">Population: low to high</option><option value="area-desc">Area: largest first</option><option value="area-asc">Area: smallest first</option></select>
+        <button id="refreshBtn" class="refresh-button" type="button" title="Fetch countries again"><span id="refreshIcon">↻</span><span class="hidden sm:inline">Refresh</span></button>
+      </div>
+
+      <div class="mb-5 flex flex-wrap items-center justify-between gap-3"><p id="resultsLabel" class="text-sm font-semibold text-slate-500 dark:text-slate-400" aria-live="polite">Loading countries…</p><p class="text-xs text-slate-400">Tip: select two saved countries to compare</p></div>
+      <div id="statusArea" class="mb-6" aria-live="polite"></div>
+      <div id="countryGrid" class="country-grid" aria-label="Country results"></div>
+      <div id="emptyState" class="hidden rounded-3xl border border-dashed border-slate-300 px-5 py-16 text-center dark:border-slate-700"><div class="text-4xl">🧭</div><h3 class="mt-4 text-xl font-bold">No countries found</h3><p class="mt-2 text-sm text-slate-500">Try another name or change your filters.</p><button id="clearFiltersBtn" class="mt-5 rounded-xl bg-ink px-4 py-2.5 text-sm font-bold text-white dark:bg-mint dark:text-ink">Clear filters</button></div>
+      <div class="mt-9 flex justify-center"><button id="loadMoreBtn" class="hidden rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold shadow-sm transition hover:border-emerald-400 dark:border-slate-700 dark:bg-slate-900" type="button">Load more countries ↓</button></div>
+    </section>
+
+    <section class="border-y border-slate-200 bg-white py-12 dark:border-slate-800 dark:bg-slate-900/40 sm:py-16">
+      <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
+        <div class="feature-item"><span class="feature-icon">⌕</span><h3>Curiosity, curated</h3><p>Search and filter hundreds of countries to follow whatever catches your eye.</p></div>
+        <div class="feature-item"><span class="feature-icon">♡</span><h3>Your personal atlas</h3><p>Save places you love. Your list stays on this device, even after a refresh.</p></div>
+        <div class="feature-item"><span class="feature-icon">⇄</span><h3>Compare perspectives</h3><p>Put two countries side by side and discover what makes each one unique.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-8 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+    <a href="#" class="font-display text-sm font-extrabold tracking-tight text-slate-800 dark:text-white">world<span class="text-emerald-500">explorer</span></a>
+    <p>Built with vanilla JavaScript · Data from REST Countries API</p><p>Made for the endlessly curious ✦</p>
+  </footer>
+
+  <div id="modalRoot"></div>
+  <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
